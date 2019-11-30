@@ -13,8 +13,14 @@ int main(){
 	}
 	else{
 		while(getline(fileReader,line)){						//Loops till we reach end of file
-			countLines++;
-			cout<<line<<endl;
+			if(line.empty() || line.find("//")==0)              //Checks for blank lines and comments(//)
+			{
+               			 countLines++;
+			}
+			else
+         	   	{
+                		cout<<line<<endl;
+            		}
 		}
 	}
 	cout<<"Number of Lines: "<<countLines<<endl;
