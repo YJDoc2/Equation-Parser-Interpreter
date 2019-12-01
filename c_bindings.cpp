@@ -44,3 +44,80 @@ int checkAndEvalInternalFn(char in[]){
     	return 0;
     }
 }
+
+void print_output(string out){
+	
+	//! To Implement
+
+
+}
+
+string get_next_data_line(ifstream reader){
+	string line;
+	
+	while(reader.good()){
+		getline(reader,line);
+		++current_line;
+		//Removes space from line
+		line.erase(remove_if(line.begin(),line.end(),::is_space),line.end());
+		
+		//Checks for blank lines and comments(//)
+		if(line.empty() || line.find("//")==0){
+			contine;
+
+		}else{
+			return line;
+        	}
+	}
+	
+	throw exception("Reached End of file.");
+	
+
+}
+
+void lin_solve(ifstream reader,int num_eq){
+	
+	//@Vatsal
+
+}
+
+
+void poly_solve(string eq){
+	Result ret;
+        ret = solvePoly(eq);
+        if(ret.status != SUCCESS){
+        	throw string(ret.error_info);
+        }else{
+		Quotient *temp;
+                temp=rootstart;
+                if (rootstart==NULL){
+                    printf("No Real Roots are Found \n");
+                }else{
+		    //Display the variables from top -> bottom
+                    while (temp!=NULL){
+                        printf("Root = %f \n",temp->coef);
+                        temp=temp->next;
+                    }
+                }
+        }
+
+}
+
+void parse(string line){
+		
+	char arr[] = line.c_str();
+	
+	int stat = checkAndEvalInternalFn(arr);
+	if(stat == 1){
+		return;
+	}
+	
+	Result r = parse(arr,arr+line.length());
+	
+	if(r.status != SUCCESS){
+		throw string(r.error_info);
+        }
+	
+	//! Still to Decide on how to give the outputs...
+
+}

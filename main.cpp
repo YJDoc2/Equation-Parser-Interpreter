@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 #include<cctype>
+#include<exception>
 #include<algorithm>
 
 #include "./c_bindings.cpp"
@@ -9,53 +10,6 @@
 using namespace std;
 
 int current_line=0;
-
-int main(int argc,char *argv[]){
-	ifstream file_reader;
-	string line;
-	
-	if(argc<2){
-	
-		cout<<"Please give appropriate arguments..."<<endl;
-		cout<<"eqparce <script_file_name>"<<endl;
-	
-	
-	}
-	file_reader.open(argv[1]);
-	
-	//Prints Error message if file cannot be accessed
-	if (file_reader.bad()){
-		cout<<"Cannot Read File "<<argv[1]<<endl;
-		cout<<"Please Check if user has appropriate read permissions"<<endl;
-		return 1;
-	}
-	
-	
-	while(file_reader.good()){
-		getline(file_reader,line);
-		string temp = line;
-		//Removes space from line
-		line.erase(remove_if(line.begin(),line.end(),::is_space),line.end());
-		++current_line;
-		//Checks for blank lines and comments(//)
-		if(line.empty() || line.find("//")==0){
-			contine;
-
-		}else{
-			try{
-				process_line(line,file_reader);
-			}catch(string err){
-				cout<<"Error at line "<<current_line<<" : "<<endl;
-				cout<<"\t"<<temp<<endl;
-				cout<<"\t"<<err<<endl;
-			}
-			
-        }
-	}
-	cout<<"Number of Lines: "<<current_line<<endl;
-	file_reader.close();
-	return 0;
-}
 
 
 void process_line(string line,ifstream reader){
@@ -95,50 +49,47 @@ void process_line(string line,ifstream reader){
 
 }
 
-
-void lin_solve(ifstream reader,int num_eq){
+int main(int argc,char *argv[]){
+	string line;
+	ifstream file_reader;
 	
-	//@Vatsal
-
-}
-
-
-void poly_solve(string eq){
-	Result *ret;
-	eq[strlen(eq)-1] = '\0';
-            ret = solvePoly(eq);
-            if(ret.status != SUCCESS){
-                printf("Error Occured...%s\n",ret.error_info);
-            }else{
-                Quotient *temp;
-                temp=rootstart;
-                if (rootstart==NULL){
-                    printf("No Real Roots are Found \n");
-                }else{
-                    while (temp!=NULL){
-                        printf("Root = %f \n",temp->coef);			//Display the variables from top -> bottom
-                        temp=temp->next;
-                    }
-                }
-            }//@Yatharth
-
-}
-
-void parse(string line){
-		
-	char arr[] = line.c_str();
+	if(argc<2){
 	
-	int stat = checkAndEvalInternalFn(arr);
-	if(stat == 1){
-		return;
+		cerr<<"Please give appropriate arguments..."<<endl;
+		cerr<<"eqparce <script_file_name>"<<endl;
+		return 1;
+	
+	}
+	file_reader.open(argv[1]);
+	
+	//Prints Error message if file cannot be accessed
+	if (file_reader.bad()){
+		cerr<<"Cannot Read File "<<argv[1]<<endl;
+		cerr<<"Please Check if user has appropriate read permissions"<<endl;
+		return 1;
 	}
 	
-	Result r = parse(arr,arr+line.length());
 	
-	if(r.status != SUCCESS){
-		throw string(r.error_info);
-        }
+	while(file_reader.good()){
 	
-	//! Still to Decide on how to give the outputs...
-
+		try{
+			line = get_next_data_line(file_reader);
+			try{
+				process_line(line,file_reader);
+			}catch(string err){
+				cerr<<"Error at line "<<current_line<<" : "<<endl;
+				cerr<<"\t"<<temp<<endl;
+				cerr<<"\t"<<err<<endl;
+				break;
+			}
+		}catch(exception){
+			//Do nothing
+		}
+		
+			
+			
+	}
+	cout<<"Number of Lines: "<<current_line<<endl;
+	file_reader.close();
+	return 0;
 }
