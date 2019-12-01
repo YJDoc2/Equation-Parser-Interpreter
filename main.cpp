@@ -100,10 +100,11 @@ void lin_solve(ifstream reader,int num_eq){
 	Result ret;
 	
 	string line;
-	ret=parserLinear(line);
+	
 	while(1)
 	{		
 		get_next_data_line(reader);
+		ret=parserLinear(line);
 		//getline(reader,line);
 		if(reader.eof())
 			break;
