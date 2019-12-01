@@ -104,8 +104,23 @@ void lin_solve(ifstream reader,int num_eq){
 
 
 void poly_solve(string eq){
-
-	//@Yatharth
+	Result *ret;
+	eq[strlen(eq)-1] = '\0';
+            ret = solvePoly(eq);
+            if(ret.status != SUCCESS){
+                printf("Error Occured...%s\n",ret.error_info);
+            }else{
+                Quotient *temp;
+                temp=rootstart;
+                if (rootstart==NULL){
+                    printf("No Real Roots are Found \n");
+                }else{
+                    while (temp!=NULL){
+                        printf("Root = %f \n",temp->coef);			//Display the variables from top -> bottom
+                        temp=temp->next;
+                    }
+                }
+            }//@Yatharth
 
 }
 

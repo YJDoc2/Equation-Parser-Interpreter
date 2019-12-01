@@ -11,6 +11,7 @@ extern Result varload(void);
 extern void clearVars(void);
 extern Result parse(char * start, char * end);
 extern float absolute(float x);
+extern Result solvePoly(string eq);
 
 using namespace std;
 
