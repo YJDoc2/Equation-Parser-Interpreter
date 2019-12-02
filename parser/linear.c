@@ -88,6 +88,16 @@ Result solveLinear(){
     Result ret;
     int i,j,k;
     float c=0.0,sum = 0.0,res =0.0;
+    if(numVars == 1){
+        if(augmentedM[1][1] == 0){
+            ret.status = MATH_ERROR;
+            sprintf(ret.error_info,"Inconsistant or Infinite Solution Equations");
+            return ret;
+        }
+        ret.status = SUCCESS;
+        X[1]= augmentedM[1][2]/augmentedM[1][1];
+        return ret;
+    }
     for(i=1;i<=numVars;i++){
             for(j=1;j<=numVars;j++){
                 tempM[i][j]=augmentedM[i][j];
@@ -95,7 +105,7 @@ Result solveLinear(){
         }
     det = determinant(tempM,numVars);
     if(-1E-36<det && 1E-36>det){
-        printf("NO UNIQUE SOLIUTIONS\n");//for temporary purpose.
+        //printf("NO UNIQUE SOLIUTIONS\n");//for temporary purpose.
         ret.status = MATH_ERROR;
         sprintf(ret.error_info,"Inconsistant or Infinite Solution Equations");
         return ret;

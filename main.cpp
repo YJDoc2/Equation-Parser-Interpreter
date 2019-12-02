@@ -9,23 +9,16 @@
 
 using namespace std;
 
-int current_line=0;
+void process_line(string line,ifstream& reader){
 
-
-void process_line(string line,ifstream reader){
-	
-	if(line.length<){
-		
-	}
-	
 	string temp = "";
 	
 	//linsolve -> 8 chars
 	temp = line.substr(0,8);
-	if(temp.compare("linsolve")){
+	if(temp.compare("linsolve") == 0){
 		
 		if(isdigit(line[8])==0 || isdigit(line[9]) != 0){
-			throw "Invalid Syntax..Should be 'linsolve<number of variables> where number of variables should be less than 9'";
+			throw "Invalid Syntax..Should be 'linsolve<number of variables> where number of variables should be less than 9'"s;
 		}
 		
 		lin_solve(reader,line[8]-'0');
@@ -35,7 +28,7 @@ void process_line(string line,ifstream reader){
 	
 	//polysolve -> 9 char
 	temp = line.substr(0,9);
-	if(temp.compare("polysolve")){
+	if(temp.compare("polysolve") == 0){
 		
 		poly_solve(line.substr(9,line.length()));
 		return;
@@ -69,6 +62,15 @@ int main(int argc,char *argv[]){
 		return 1;
 	}
 	
+	if(argc > 2){
+		output_is_terminal = false;
+		output_file = ofstream(string(argv[2]));
+		if(output_file.bad()){
+			cerr<<"Cannot write in File "<<argv[2]<<endl;
+			cerr<<"Please Check if user has appropriate read permissions"<<endl;
+			return 1;
+		}
+	}
 	
 	while(file_reader.good()){
 	
@@ -78,7 +80,7 @@ int main(int argc,char *argv[]){
 				process_line(line,file_reader);
 			}catch(string err){
 				cerr<<"Error at line "<<current_line<<" : "<<endl;
-				cerr<<"\t"<<temp<<endl;
+				cerr<<"\t"<<line<<endl;
 				cerr<<"\t"<<err<<endl;
 				break;
 			}
@@ -89,7 +91,6 @@ int main(int argc,char *argv[]){
 			
 			
 	}
-	cout<<"Number of Lines: "<<current_line<<endl;
 	file_reader.close();
 	return 0;
 }
