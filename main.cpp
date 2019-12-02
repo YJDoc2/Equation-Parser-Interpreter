@@ -12,7 +12,9 @@ using namespace std;
 void process_line(string line,ifstream& reader){
 
 	string temp = "";
-	
+	if(line.length()>150){
+		throw "All lines should be Less than 150 Characters long..."s;
+	}
 	//linsolve -> 8 chars
 	temp = line.substr(0,8);
 	if(temp.compare("linsolve") == 0){
@@ -49,7 +51,7 @@ int main(int argc,char *argv[]){
 	if(argc<2){
 	
 		cerr<<"Please give appropriate arguments..."<<endl;
-		cerr<<"eqparce <script_file_name>"<<endl;
+		cerr<<"eqparse <script_file_name> [<output_file_name>]"<<endl;
 		return 1;
 	
 	}
