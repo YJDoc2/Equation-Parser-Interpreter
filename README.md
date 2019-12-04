@@ -6,19 +6,19 @@ This is an file based interpriter for <a href = "https://github.com/YJDoc2/Equat
 
 #### Compiling
 
-generate the runfile using makefile and make command (on linux), requires gcc and g++.
+generate the runfile using makefile and make command (on linux), requires gcc and g++, with c++ std 14 support.
 
 For manual compiling :
 
 <ol>
 <li>gcc -c cparser.c -lm ; which will give cparser.o </li>
-<li>g++ main.cpp; which will give main.o </li>
+<li>g++ -c main.cpp; which will give main.o </li>
 <li>g++ -o eqparse cparser.o main.o; which will give eqparse</li>
 </ol>
 
 #### running
 
-eqparse &lt;script_file&gt; [&lt;output_file&gt;]
+eqparse &lt;script_file&gt; [output_file]  (Without Brackets)
 
 script file is any valid text file written with valid syntax.  
 output file is optional.
@@ -44,7 +44,7 @@ If given output will <b> Overwrite </b> the file.
 <li>To solve system of linear equation with less than 9 variables:
 <ul>
 <li>First give linsolve &lt;space&gt; &lt;number of variables (n)&gt;</li>
-<li>Then give the linear equations using variables x0 to xn on next consecutive lines.</li>
+<li>Then give the linear equations using variables x0 to x(n-1) on next consecutive lines.</li>
 </ul>
 </li>
 </ul>

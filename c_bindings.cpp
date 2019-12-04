@@ -131,7 +131,7 @@ string get_next_data_line(ifstream& reader){
         	}
 	}
 	
-	throw "EOF"s;
+	throw string("EOF");
 	
 
 }
@@ -144,7 +144,7 @@ void lin_solve(ifstream& reader,int num_eq){
     initLinear();
 	for(currentEq=1;currentEq<=numVars;++currentEq){		
 		if(reader.bad()){
-			throw "Incomplete number of equations on line "+to_string(current_line)+"\n\tRequired "+to_string(num_eq)+" Found"+to_string(currentEq)+"."s;
+			throw string("Incomplete number of equations on line "+to_string(current_line)+"\n\tRequired "+to_string(num_eq)+" Found"+to_string(currentEq)+".");
 		}else{
             string line = get_next_data_line(reader);
             char eq[line.size()+1];

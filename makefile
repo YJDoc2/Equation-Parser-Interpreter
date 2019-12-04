@@ -1,5 +1,5 @@
-eqparce : main.o cparser.o
-	g++ -o eqparce cparser.o main.o
+eqparse : main.o cparser.o
+	g++ -o eqparse cparser.o main.o
 	rm ./*.o
 
 main.o : main.cpp c_bindings.cpp

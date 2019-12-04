@@ -13,14 +13,14 @@ void process_line(string line,ifstream& reader){
 
 	string temp = "";
 	if(line.length()>150){
-		throw "All lines should be Less than 150 Characters long..."s;
+		throw string("All lines should be Less than 150 Characters long...");
 	}
 	//linsolve -> 8 chars
 	temp = line.substr(0,8);
 	if(temp.compare("linsolve") == 0){
 		
 		if(isdigit(line[8])==0 || isdigit(line[9]) != 0){
-			throw "Invalid Syntax..Should be 'linsolve<number of variables> where number of variables should be less than 9'"s;
+			throw string("Invalid Syntax..Should be 'linsolve<number of variables> where number of variables should be less than 9'");
 		}
 		
 		lin_solve(reader,line[8]-'0');
